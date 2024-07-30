@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -35,8 +35,13 @@ Migrate(app, db)
 
 
 @app.route("/")
-def hello():
+def signin():
     return "Hello World!"
+
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
 
 
 if __name__ == "__main__":
