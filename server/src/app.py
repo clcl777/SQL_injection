@@ -24,15 +24,16 @@ def signin():
     if request.method == "POST":
         name = request.form.get("name")
         password = request.form.get("password")
-        query = "SELECT * FROM users WHERE name = %s AND password = %s"
         with get_connection() as conn:
             with conn.cursor() as cur:
+                query = "SELECT * FROM users WHERE name = %s AND password = %s"
                 cur.execute(query, (name, password))
                 user = cur.fetchone()
                 if user:
-                    return redirect("/mypage")
+                    flash("Login successful", "flash-success")
+                    return redirect("/")
                 else:
-                    flash("Invalid username or password")
+                    flash("Invalid username or password", "flash-error")
                     return redirect("/")
     else:
         return render_template("signin.html")
@@ -43,14 +44,19 @@ def signup():
     if request.method == "POST":
         name = request.form.get("name")
         password = request.form.get("password")
-        query = "INSERT INTO users (name, password) VALUES (%s, %s)"
         with get_connection() as conn:
             with conn.cursor() as cur:
+                query = "INSERT INTO users (name, password) VALUES (%s, %s)"
                 cur.execute(query, (name, password))
                 conn.commit()
         return redirect("/")
     else:
         return render_template("signup.html")
+
+
+@app.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
 
 
 if __name__ == "__main__":

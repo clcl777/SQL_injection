@@ -9,13 +9,15 @@
 <body>
     <div>
         <h2>ログイン画面</h2>
-        {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div style="color: red;">
-            {{ messages[0] }}
-        </div>
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
-        {% endwith %}
+    {% endwith %}
         <form action="#" method="post">
             <label for="name">名前:</label>
             <input type="text" id="name" name="name" required>
@@ -27,5 +29,14 @@
         </form>
     </div>
 </body>
-
 </html>
+
+<style>
+    .flash-error {
+        color: red;
+    }
+
+    .flash-success {
+        color: green;
+    }
+</style>
