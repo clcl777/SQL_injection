@@ -9,15 +9,15 @@
 <body>
     <div>
         <h2>ログイン画面</h2>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="flash {{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <form action="#" method="post">
             <label for="name">名前:</label>
             <input type="text" id="name" name="name" required>
@@ -27,6 +27,7 @@
 
             <button type="submit">ログイン</button>
         </form>
+        <a href="/signup"><button id="registerButton">登録ページへ</button></a>
     </div>
 </body>
 </html>
