@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+</head>
+
+<body>
+    <h1>Admin Page</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Password</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td> <!-- Assuming the first column is ID -->
+            <td>{{ user[1] }}</td> <!-- Assuming the second column is Name -->
+            <td>{{ user[2] }}</td> <!-- Assuming the third column is Password -->
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

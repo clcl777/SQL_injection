@@ -59,5 +59,14 @@ def mypage():
     return render_template("mypage.html")
 
 
+@app.route("/admin")
+def admin():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users")
+            users = cur.fetchall()
+            return render_template("admin.html", users=users)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
