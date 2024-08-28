@@ -2,7 +2,8 @@ DOCKER_COMPOSE_FILE := docker-compose.yml
 DOCKER_SERVER_SERVICE := server
 DOCKER_DATABASE_SERVICE := db
 
-.PHONY: build up ps bash_db
+.PHONY: build up ps bash_db bash_server
+
 
 build:
 	docker compose -f $(DOCKER_COMPOSE_FILE) build

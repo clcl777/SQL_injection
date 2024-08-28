@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: SQL_injection_server
     ports:
-      - 8000:80
+      - 8001:80
     tty: true
     volumes:
       - ./server/src:/src
@@ -21,7 +21,7 @@ services:
     build:
       dockerfile: ./db/Dockerfile
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/postgresql/data

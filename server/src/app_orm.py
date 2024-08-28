@@ -2,6 +2,18 @@ import os
 
 import psycopg2
 from flask import Flask, flash, redirect, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+DATABASE_URI = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{database_name}".format(
+    **{
+        "user": os.environ["POSTGRES_USER"],
+        "password": os.environ["POSTGRES_PASSWORD"],
+        "host": os.environ["HOST"],
+        "database_name": os.environ["DATABASE_NAME"],
+        "port": os.environ["DATABASE_PORT"],
+    }
+)
 
 
 def get_connection():
@@ -15,8 +27,16 @@ def get_connection():
     return conn
 
 
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+
+
 app = Flask(__name__)
-app.secret_key = "secret"
+app.config.update(SQLALCHEMY_TRACK_MODIFICATIONS=False, SQLALCHEMY_DATABASE_URI=DATABASE_URI, SECRET_KEY="key")
+db.init_app(app)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -24,10 +44,10 @@ def signin():
     if request.method == "POST":
         name = request.form.get("name")
         password = request.form.get("password")
-        query = "SELECT * FROM users WHERE name = %s AND password = %s"
+        query = f"SELECT * FROM users WHERE name = '{name}' AND password = '{password}'"
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(query, (name, password))
+                cur.execute(query)
                 user = cur.fetchone()
                 if user:
                     return redirect("/mypage")
@@ -43,11 +63,10 @@ def signup():
     if request.method == "POST":
         name = request.form.get("name")
         password = request.form.get("password")
-        query = "INSERT INTO users (name, password) VALUES (%s, %s)"
+        query = f"INSERT INTO users (name, password) VALUES ('{name}', '{password}')"
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(query, (name, password))
-                conn.commit()
+                cur.execute(query)
         return redirect("/")
     else:
         return render_template("signup.html")
