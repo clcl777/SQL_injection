@@ -26,8 +26,10 @@ def signin():
         password = request.form.get("password")
         with get_connection() as conn:
             with conn.cursor() as cur:
-                query = "SELECT * FROM users WHERE name = %s AND password = %s"
-                cur.execute(query, (name, password))
+                # query = "SELECT * FROM users WHERE name = %s AND password = %s"
+                # cur.execute(query, (name, password))
+                query = f"SELECT * FROM users WHERE name = '{name}' AND password = '{password}'"
+                cur.execute(query)
                 user = cur.fetchone()
                 if user:
                     flash("Login successful", "flash-success")
@@ -46,8 +48,10 @@ def signup():
         password = request.form.get("password")
         with get_connection() as conn:
             with conn.cursor() as cur:
-                query = "INSERT INTO users (name, password) VALUES (%s, %s)"
-                cur.execute(query, (name, password))
+                # query = "INSERT INTO users (name, password) VALUES (%s, %s)"
+                # cur.execute(query, (name, password))
+                query = f"INSERT INTO users (name, password) VALUES ('{name}', '{password}')"
+                cur.execute(query)
                 conn.commit()
         return redirect("/")
     else:
