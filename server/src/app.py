@@ -62,7 +62,8 @@ def signup():
         db.session.add(user)
         db.session.commit()
         return redirect("/")
-    return render_template("signup.html")
+    else:
+        return render_template("signup.html")
 
 
 @app.route("/mypage", methods=["GET"])
