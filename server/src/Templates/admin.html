@@ -18,9 +18,9 @@
         </tr>
         {% for user in users %}
         <tr>
-            <td>{{ user[0] }}</td> <!-- Assuming the first column is ID -->
-            <td>{{ user[1] }}</td> <!-- Assuming the second column is Name -->
-            <td>{{ user[2] }}</td> <!-- Assuming the third column is Password -->
+            <td>{{ user.id }}</td> <!-- Assuming the first column is ID -->
+            <td>{{ user.name }}</td> <!-- Assuming the second column is Name -->
+            <td>{{ user.password }}</td> <!-- Assuming the third column is Password -->
         </tr>
         {% endfor %}
     </table>
