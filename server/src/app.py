@@ -27,7 +27,7 @@ def signin():
             cur.execute(f"SELECT * FROM users WHERE name = '{name}' AND password = '{password}'")
             user = cur.fetchone()
             if user:
-                flash("Login successful", "flash-success")
+                return redirect("/mypage")
             else:
                 flash("Invalid username or password", "flash-error")
         return redirect("/")
@@ -47,7 +47,7 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route("/mypage")
+@app.route("/mypage", methods=["GET"])
 def mypage():
     return render_template("mypage.html")
 
