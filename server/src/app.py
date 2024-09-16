@@ -44,7 +44,8 @@ def signup():
             cur.execute(f"INSERT INTO users (name, password) VALUES ('{name}', '{password}')")
             conn.commit()
         return redirect("/")
-    return render_template("signup.html")
+    else:
+        return render_template("signup.html")
 
 
 @app.route("/mypage", methods=["GET"])
