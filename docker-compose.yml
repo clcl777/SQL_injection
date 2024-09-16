@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: SQL_injection_server
     ports:
-      - 8001:80
+      - 8000:80
     tty: true
     volumes:
       - ./server/src:/src
