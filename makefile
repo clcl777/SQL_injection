@@ -9,8 +9,6 @@ build:
 	docker compose -f $(DOCKER_COMPOSE_FILE) build
 
 up:
-	# コンテナ名のコンフリクトを避けるために既存のコンテナを削除
-	docker compose -f $(DOCKER_COMPOSE_FILE) rm -f
 	docker compose -f $(DOCKER_COMPOSE_FILE) up
 
 ps:
