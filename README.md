@@ -4,7 +4,7 @@
 
 https://qiita.com/tra_/items/356927dd861f11a4979e
 
-[ORMブランチ]()にORMを使用したバージョンがあります。
+[ORMブランチ](https://github.com/clcl777/SQL_injection/tree/ORM)にORMを使用したバージョンがあります。
 
 ## 起動方法
 ```
